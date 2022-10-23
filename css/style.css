@@ -1,0 +1,44 @@
+/* base */
+* {
+}
+html {
+}
+body {
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h5 {
+}
+p {
+}
+button {
+}
+button:hover {
+}
+a {
+}
+
+/* vars */
+
+/* helpers */
+.clean-list {
+  list-style: none;
+  margin: 0;
+}
+.flex {
+  display: flex;
+}
+.a-center {
+  align-items: center;
+}
+.j-center {
+  justify-content: center;
+}
+
+/* layout */
+
+/* components */
