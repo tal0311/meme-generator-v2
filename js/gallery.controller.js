@@ -33,13 +33,19 @@ function renderGallery() {
 
   const strHtmls = images
     .map((img) => {
-      const { url } = img
+      const { id, url } = img
       return `
-    <article class="image-preview">
+    <article class="image-preview" onclick="onSelectMeme('${id}')">
             <img src="${url}" alt="" />
     </article>
     `
     })
     .join('')
   document.querySelector('.image-list').innerHTML = strHtmls
+}
+
+function onSelectMeme(memeId) {
+  console.log('memeId:', memeId)
+  setMeme(memeId)
+  navigateTo('editor')
 }
