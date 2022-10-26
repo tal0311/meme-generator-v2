@@ -14,10 +14,9 @@
     />
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css" />
-    <title>Document</title>
+    <title>Meme generator V2</title>
   </head>
-  <body onload="onInit()">
-    icons:
+  <body class="grid" onload="onInit()">
     <!-- <i class="fa-solid fa-bars"></i>
     <i class="fa-solid fa-copy"></i>
     <i class="fa-solid fa-trash"></i>
@@ -43,10 +42,69 @@
     <i class="fa-brands fa-buromobelexperte"></i>
     <i class="fa-solid fa-list"></i>
     <i class="fa-solid fa-share-nodes"></i> -->
+    <header class="main-layout">
+      <div class="header-container flex a-center s-between">
+        <div class="logo">Meme-generator</div>
+        <nav>
+          <a onclick="navigateTo('gallery')" href="#">Gallery</a> |
+          <a onclick="navigateTo('editor')" href="#">Editor</a> |
+          <a onclick="navigateTo('saved')" href="#">Saved</a>
+        </nav>
+      </div>
+    </header>
+    <section class="app-filter">
+      <label for="ice-cream-choice">Choose a flavor:</label>
+      <input list="topics" name="topics" />
 
-    <section class="gallery"></section>
-    <section class="meme-editor"></section>
+      <datalist id="topics">
+        <option value="politics">politics</option>
+        <option value="baby">baby</option>
+        <option value="funny">funny</option>
+      </datalist>
 
+      <section class="search-word-container">
+        <span>funny</span><span>politics</span><span>baby</span>
+      </section>
+    </section>
+    <main>
+      <section class="gallery page gallery main-layout">
+        <div class="grid image-list j-center full">
+          <article class="image-preview">
+            <img src="/assets/images/1.jpg" alt="" />
+          </article>
+          <article class="image-preview">
+            <img src="/assets/images/1.jpg" alt="" />
+          </article>
+          <article class="image-preview">
+            <img src="/assets/images/1.jpg" alt="" />
+          </article>
+          <article class="image-preview">
+            <img src="/assets/images/1.jpg" alt="" />
+          </article>
+          <article class="image-preview">
+            <img src="/assets/images/1.jpg" alt="" />
+          </article>
+          <article class="image-preview">
+            <img src="/assets/images/1.jpg" alt="" />
+          </article>
+          <article class="image-preview">
+            <img src="/assets/images/1.jpg" alt="" />
+          </article>
+          <article class="image-preview">
+            <img src="/assets/images/1.jpg" alt="" />
+          </article>
+          <article class="image-preview">
+            <img src="/assets/images/1.jpg" alt="" />
+          </article>
+        </div>
+      </section>
+      <section class="editor page meme-editor" hidden>gallery</section>
+      <section class="saved page meme-editor" hidden>saved</section>
+    </main>
+    <section class="about">about the developer</section>
+    <footer>
+      <small>coffee right</small>
+    </footer>
     <script src="js/gallery.controller.js"></script>
   </body>
 </html>
