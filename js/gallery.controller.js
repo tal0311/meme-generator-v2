@@ -1,4 +1,4 @@
-function initGallery() {
+function onInit() {
   console.log('%c Gallery init', 'color:lightgreen')
 }
 
