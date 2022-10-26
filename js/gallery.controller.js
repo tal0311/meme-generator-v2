@@ -3,7 +3,7 @@ function onInit() {
   navigateTo()
 }
 
-function navigateTo(route = 'gallery') {
+function navigateTo(route = 'editor') {
   const pages = [...document.querySelectorAll('.page')]
   pages.forEach((page) => {
     return !page.classList.contains(route)

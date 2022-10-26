@@ -30,7 +30,7 @@ var gImgs = [
 var gMeme = {
   selectedImgId: 5,
   selectedLineIdx: 0,
-
+  imgUrl: 'assets/images/2.jpg',
   lines: [
     {
       txt: 'I sometimes eat Falafel',

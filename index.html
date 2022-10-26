@@ -24,8 +24,7 @@
     <i class="fa-solid fa-heart"></i>
     <i class="fa-solid fa-sort"></i>
     <i class="fa-solid fa-arrow-left"></i>
-    <i class="fa-solid fa-arrow-up"></i>
-    <i class="fa-solid fa-arrow-down"></i>
+    
     <i class="fa-solid fa-arrow-right"></i>
     <i class="fa-solid fa-xmark"></i>
     <i class="fa-solid fa-plus"></i>
@@ -72,25 +71,30 @@
       </section>
 
       <section class="editor page meme-editor" hidden>
-        <div class="meme-editor-container">
+        <div class="meme-editor-container flex j-center">
           <section class="canvas-container">
             <canvas width="500" height="500"></canvas>
           </section>
-          <section class="editor">
+          <section class="editor-panel">
             <input type="text" name="" id="" placeholder="Enter line text" />
             <div class="line-top-panel">
-              <button>down</button>
-              <button>up</button>
-              <button>+</button>
-              <button>trash</button>
+              <button class="fa-solid fa-arrow-up"></button>
+              <button class="fa-solid fa-arrow-down"></button>
+              <button class="fa-solid fa-plus"></button>
+              <button class="fa-solid fa-trash"></button>
             </div>
             <div class="line-bottom-panel">
-              <button></button>
-              <button></button>
-              <button></button>
-              <button></button>
-              <button></button>
-              <button></button><input type="color" name="color" />
+              <button class="fa-solid fa-a"><i class="fa-plus"></i></button>
+              <button class="fa-solid fa-a">
+                <i class="fa-solid fa-minus"></i>
+              </button>
+              <button class="fa-solid fa-align-right"></button>
+              <button class="fa-solid fa-align-center"></button>
+              <button class="fa-solid fa-align-left"></button>
+              <button class="fa-solid fa-paint-roller"></button>
+              <label class="fa-solid fa-palette" for="color">
+                <input id="color" type="color" name="color" value="#ff0000" />
+              </label>
             </div>
           </section>
         </div>
