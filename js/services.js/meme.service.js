@@ -1,3 +1,5 @@
+const SAVED_KEY = 'savedDB'
+
 var gSearchCountMap = { funny: 12, cat: 16, baby: 2 }
 
 var gImgs = [
@@ -45,4 +47,8 @@ function getImagesForDisplay() {
 
 function getMemeForDisplay() {
   return null
+}
+
+function getSavedForDisplay() {
+  return loadFromStorage(SAVED_KEY)
 }

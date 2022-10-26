@@ -1,36 +1,17 @@
-function onInit() {
+function initSaved() {
   console.log('%c Gallery init', 'color:lightgreen')
-  navigateTo()
+  renderSaved()
 }
 
-function navigateTo(route = 'gallery') {
-  const pages = [...document.querySelectorAll('.page')]
-  pages.map((page) => {
-    return !page.classList.contains(route)
-      ? (page.hidden = true)
-      : (page.hidden = false)
-  })
-  renderBy(route)
-}
+function renderSaved() {
+  let images = getSavedForDisplay()
 
-function renderBy(route) {
-  switch (route) {
-    case 'gallery':
-      renderGallery()
-      break
-    case 'saved':
-      renderSaved()
-      break
-    case 'editor':
-      // in editor controller
-      renderEditor()
-      break
+  if (!images) {
+    document.querySelector(
+      '.saved'
+    ).innerHTML = `<h1 class="default-msg">No saved Meme at this time</h1>`
+    return
   }
-}
-
-function renderGallery() {
-  let images = getImagesForDisplay()
-
   const strHtmls = images
     .map((img) => {
       const { url } = img

@@ -19,11 +19,11 @@ function renderBy(route) {
       renderGallery()
       break
     case 'saved':
-      renderSaved()
+      initSaved()
       break
     case 'editor':
       // in editor controller
-      renderEditor()
+      initEditor()
       break
   }
 }

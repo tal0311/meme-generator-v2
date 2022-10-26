@@ -4,6 +4,7 @@ var gCtx
 function initEditor() {
   gCanvas = document.querySelector('canvas')
   gCtx = gCanvas.getContext('2d')
+  renderEditor()
 }
 
 function renderEditor() {
