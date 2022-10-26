@@ -93,18 +93,23 @@
           <article class="image-preview">
             <img src="/assets/images/1.jpg" alt="" />
           </article>
-          <article class="image-preview">
-            <img src="/assets/images/1.jpg" alt="" />
-          </article>
         </div>
       </section>
-      <section class="editor page meme-editor" hidden>gallery</section>
-      <section class="saved page meme-editor" hidden>saved</section>
+
+      <section class="editor page meme-editor" hidden>
+        <section class="canvas-container">
+          <canvas></canvas>
+        </section>
+      </section>
+      <section class="saved page saved" hidden>saved</section>
     </main>
     <section class="about">about the developer</section>
     <footer>
       <small>coffee right</small>
     </footer>
+
+    <script src="js/services.js/meme.service.js"></script>
     <script src="js/gallery.controller.js"></script>
+    <script src="js/meme.controller.js"></script>
   </body>
 </html>
