@@ -34,9 +34,11 @@ var gMeme = {
   lines: [
     {
       txt: 'I sometimes eat Falafel',
-      size: 20,
-      align: 'left',
-      color: 'red',
+      size: 40,
+      align: 'center',
+      fillColor: '#fff',
+      strokeColor: '#000',
+      font: 'impact',
     },
   ],
 }
@@ -56,10 +58,29 @@ function getSavedForDisplay() {
 function setMeme(memeId) {
   const meme = getMemeById(memeId)
   console.log('meme:', meme)
-  if (meme) gMeme.imgUrl = meme.url
+  if (meme) {
+    gMeme.imgUrl = meme.url
+    gMeme.selectedImgId = +memeId
+  }
   console.log('gMeme:', gMeme)
 }
 
 function getMemeById(memeId) {
   return gImgs.find((image) => image.id === +memeId)
+}
+
+function setLineProps(key, value) {
+  const { selectedLineIdx: idx } = gMeme
+  gMeme.lines[idx][key] = value
+}
+
+function createLine(txt = 'Enter your text') {
+  gMeme.lines.push({
+    txt,
+    size: 40,
+    align: 'center',
+    fillColor: '#fff',
+    strokeColor: '#000',
+    font: 'Impact',
+  })
 }

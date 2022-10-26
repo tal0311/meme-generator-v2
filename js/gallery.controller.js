@@ -5,7 +5,7 @@ function onInit() {
 
 function navigateTo(route = 'gallery') {
   const pages = [...document.querySelectorAll('.page')]
-  pages.map((page) => {
+  pages.forEach((page) => {
     return !page.classList.contains(route)
       ? (page.hidden = true)
       : (page.hidden = false)
@@ -19,6 +19,7 @@ function renderBy(route) {
       renderGallery()
       break
     case 'saved':
+      // in saved controller
       initSaved()
       break
     case 'editor':
@@ -45,7 +46,6 @@ function renderGallery() {
 }
 
 function onSelectMeme(memeId) {
-  console.log('memeId:', memeId)
   setMeme(memeId)
   navigateTo('editor')
 }
