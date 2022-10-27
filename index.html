@@ -95,6 +95,28 @@
               <label class="fa-solid fa-palette" for="color">
                 <input id="color" type="color" name="color" value="#ff0000" />
               </label>
+              <select name="font-style" onchange="onFontSelect(this.value)">
+                <option value="impact">impact</option>
+                <option value="ariel">ariel</option>
+              </select>
+            </div>
+            <div class="imojis-container">imojis</div>
+            <div class="share-download-container">
+              <a
+                title="DownLoad meme as image"
+                href="#"
+                onclick="onSave(this)"
+                download="canvas-img.jpg"
+                >Download</a
+              >
+              <button title="Save meme" onclick="onSave(null,'save')">
+                save
+              </button>
+              <button title="Share to faceBook" onclick="onShare()">
+                share
+              </button>
+              <button title="Upload image">upload</button>
+              <button title="Take photo">snap</button>
             </div>
           </section>
         </div>
@@ -107,6 +129,12 @@
       <small>coffee right</small>
     </footer>
 
+    <dialog>
+      <video src="" autoplay></video>
+      <form><button>Snap</button></form>
+    </dialog>
+
+    <script src="js/services.js/util.service.js"></script>
     <script src="js/services.js/storage.service.js"></script>
     <script src="js/services.js/meme.service.js"></script>
 

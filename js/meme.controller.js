@@ -43,3 +43,12 @@ function renderDefaultMsg() {
     '.meme-editor'
   ).innerHTML = `<h1 class="default-msg">Select Meme from gallery to edit</h1>`
 }
+
+function onSave(elLink, type = 'save') {
+  downloadCanvas(elLink, type, gCanvas)
+}
+
+function onShare() {
+  console.log('share')
+  uploadImg(gCanvas)
+}
