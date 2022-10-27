@@ -52,7 +52,12 @@ function getMemeForDisplay() {
 }
 
 function getSavedForDisplay() {
-  return loadFromStorage(SAVED_KEY)
+  let saved = loadFromStorage(SAVED_KEY)
+  return saved.map((meme) => {
+    return {
+      ...meme,
+    }
+  })
 }
 
 function setMeme(memeId) {

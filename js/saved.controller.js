@@ -14,13 +14,13 @@ function renderSaved() {
   }
   const strHtmls = images
     .map((img) => {
-      const { url } = img
+      const { imgUrl } = img
       return `
     <article class="image-preview">
-            <img src="${url}" alt="" />
+            <img src="${imgUrl}" alt="" />
     </article>
     `
     })
     .join('')
-  document.querySelector('.image-list').innerHTML = strHtmls
+  document.querySelector('.saved-image-list').innerHTML = strHtmls
 }
