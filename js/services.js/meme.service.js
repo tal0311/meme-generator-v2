@@ -36,9 +36,11 @@ var gMeme = {
       txt: 'I sometimes eat Falafel',
       size: 40,
       align: 'center',
-      fillColor: '#fff',
-      strokeColor: '#000',
+      fillColor: '#ce3636',
+      strokeColor: '#00000',
       font: 'impact',
+      x: 250,
+      y: 50,
     },
   ],
 }
@@ -70,6 +72,22 @@ function setMeme(memeId) {
   console.log('gMeme:', gMeme)
 }
 
+function addLine(x, y) {
+  console.log('addLine:')
+  createLine('Enter your text', x, y)
+}
+
+function changeLine() {
+  const { selectedLineIdx: idx, lines } = gMeme
+  console.log('lines.length:  ', lines.length)
+  console.log('idx:', idx)
+  if (idx >= lines.length - 1) {
+    gMeme.selectedLineIdx = 0
+    return
+  }
+
+  gMeme.selectedLineIdx++
+}
 function getMemeById(memeId) {
   return gImgs.find((image) => image.id === +memeId)
 }
@@ -78,14 +96,19 @@ function setLineProps(key, value) {
   const { selectedLineIdx: idx } = gMeme
   gMeme.lines[idx][key] = value
 }
-
-function createLine(txt = 'Enter your text') {
+function updateLine(value, type) {
+  const { selectedLineIdx: idx } = gMeme
+  gMeme.lines[idx][type] = value
+}
+function createLine(txt, x, y) {
   gMeme.lines.push({
     txt,
     size: 40,
     align: 'center',
-    fillColor: '#fff',
-    strokeColor: '#000',
+    fillColor: '#fd6dc8',
+    strokeColor: '#000000',
     font: 'Impact',
+    y,
+    x,
   })
 }

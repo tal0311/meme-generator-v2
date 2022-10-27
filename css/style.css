@@ -23,7 +23,7 @@ a {
 }
 
 input[type='color'] {
-  display: none;
+  /* display: none; */
 }
 img {
   object-fit: cover;
@@ -104,6 +104,7 @@ footer {
   cursor: pointer;
   box-shadow: 0px 0px 2px 3px #9e9e9e;
 }
+/* meme editor */
 .meme-editor-container {
   background: red;
   gap: 10em;
@@ -115,11 +116,52 @@ footer {
 .editor-panel {
   background: lightsalmon;
 }
-.line-bottom-panel::before,
+
 .line-bottom-panel img {
   content: '';
   display: none;
 }
+
+.editor-panel.grid {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    'line-input line-input line-input line-input line-input'
+    'top-panel top-panel top-panel top-panel top-panel'
+    'bottom-panel bottom-panel bottom-panel bottom-panel bottom-panel'
+    'emojis emojis emojis emojis emojis'
+    'sheare-container sheare-container sheare-container sheare-container sheare-container';
+}
+
+input[name='line-txt'] {
+  grid-area: line-input;
+  height: 50%;
+  border-radius: 1em;
+  border: none;
+  font-size: 1.5em;
+  padding-inline-start: 1em;
+}
+
+.line-top-panel {
+  grid-area: top-panel;
+}
+
+.line-bottom-panel {
+  grid-area: bottom-panel;
+}
+
+.emojis-container {
+  grid-area: emojis;
+}
+
+.share-download-container {
+  grid-area: sheare-container;
+}
+
 /* helpers */
 
 .grid {

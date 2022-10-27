@@ -77,12 +77,26 @@
           <section class="canvas-container">
             <canvas width="500" height="500"></canvas>
           </section>
-          <section class="editor-panel">
-            <input type="text" name="" id="" placeholder="Enter line text" />
+          <section class="editor-panel grid flex a-center">
+            <input
+              oninput="onUpdateLine(this.value, 'txt')"
+              type="text"
+              name="txt"
+              id=""
+              placeholder="Enter line text"
+            />
             <div class="line-top-panel">
               <button class="fa-solid fa-arrow-up"></button>
               <button class="fa-solid fa-arrow-down"></button>
-              <button class="fa-solid fa-plus"></button>
+              <button
+                title="Add new line"
+                class="fa-solid fa-plus"
+                onclick="onAddLine()"
+              ></button>
+              <button
+                class="fa-solid fa-sort"
+                onclick="onChangeLine()"
+              ></button>
               <button class="fa-solid fa-trash"></button>
             </div>
             <div class="line-bottom-panel">
@@ -94,15 +108,21 @@
               <button class="fa-solid fa-align-center"></button>
               <button class="fa-solid fa-align-left"></button>
               <button class="fa-solid fa-paint-roller"></button>
-              <label class="fa-solid fa-palette" for="color">
-                <input id="color" type="color" name="color" value="#ff0000" />
+              <label class="fa-solid fa-palette" for="fillColor">
+                <input
+                  id="fillColor"
+                  type="color"
+                  name="fillColor"
+                  value="#ff0000"
+                  oninput="onUpdateLine(this.value, 'fillColor')"
+                />
               </label>
               <select name="font-style" onchange="onFontSelect(this.value)">
                 <option value="impact">impact</option>
                 <option value="ariel">ariel</option>
               </select>
             </div>
-            <div class="imojis-container">imojis</div>
+            <div class="emojis-container">emojis</div>
             <div class="share-download-container">
               <a
                 title="DownLoad meme as image"
