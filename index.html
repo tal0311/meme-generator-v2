@@ -66,10 +66,12 @@
       </section>
     </section>
     <main>
+      <!-- gallery route -->
       <section class="gallery page gallery main-layout">
         <div class="grid image-list j-center full"></div>
       </section>
 
+      <!-- editor route -->
       <section class="editor page meme-editor" hidden>
         <div class="meme-editor-container flex j-center">
           <section class="canvas-container">
@@ -116,13 +118,17 @@
                 share
               </button>
               <button title="Upload image">upload</button>
-              <button title="Take photo">snap</button>
+              <button title="Take photo" onclick="onSnap()">snap</button>
             </div>
           </section>
         </div>
       </section>
 
-      <section class="saved page" hidden>saved</section>
+      <!-- saved route -->
+      <section class="saved page" hidden>
+        <!-- <div class="grid image-list j-center full"></div> -->
+        saved
+      </section>
     </main>
     <section class="about">about the developer</section>
     <footer>
@@ -131,7 +137,10 @@
 
     <dialog>
       <video src="" autoplay></video>
-      <form><button>Snap</button></form>
+      <button onclick="takePhoto()">Snap</button>
+      <form>
+        <button>close</button>
+      </form>
     </dialog>
 
     <script src="js/services.js/util.service.js"></script>

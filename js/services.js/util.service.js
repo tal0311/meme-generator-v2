@@ -53,6 +53,19 @@ function downloadCanvas(elLink, type, canvas) {
 }
 
 function saveMeme(data) {
-  console.log('data:', data)
-  console.log('gMeme:', gMeme)
+  gMeme.imgUrl = data
+  gMeme.id = makeId()
+  delete gMeme.selectedImgId
+  var savedMemes = loadFromStorage(SAVED_KEY) || []
+  savedMemes.push(gMeme)
+  saveToStorage(SAVED_KEY, savedMemes)
+}
+
+async function getMediaDevices(elVideo) {
+  const constraints = {
+    audio: false,
+    video: true,
+  }
+  const stream = await navigator.mediaDevices.getUserMedia(constraints)
+  elVideo.srcObject = stream
 }

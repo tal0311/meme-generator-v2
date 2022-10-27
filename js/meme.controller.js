@@ -1,13 +1,15 @@
 var gCanvas
 var gCtx
+var gElVideo
 
 function initEditor() {
   gCanvas = document.querySelector('canvas')
   gCtx = gCanvas.getContext('2d')
+  gElVideo = document.querySelector('video')
   renderEditor()
 }
 
-function renderEditor() {
+function renderEditor(userVideo = null) {
   const meme = getMemeForDisplay()
 
   if (!meme.imgUrl) {
@@ -19,6 +21,7 @@ function renderEditor() {
   const img = new Image()
   img.src = imgUrl
   img.onload = () => {
+    // TODO: USER IMAGE
     gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height)
     renderLines(lines)
   }
@@ -51,4 +54,14 @@ function onSave(elLink, type = 'save') {
 function onShare() {
   console.log('share')
   uploadImg(gCanvas)
+}
+function onSnap() {
+  const elDialog = document.querySelector('dialog')
+  elDialog.showModal()
+  getMediaDevices(gElVideo)
+}
+
+function takePhoto() {
+  console.log('take photo')
+  // renderEditor(gElVideo)
 }
