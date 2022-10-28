@@ -9,20 +9,61 @@ function initEditor() {
   renderCanvas()
 }
 
-function renderCanvas(userVideo = null) {
+function renderCanvas(save = null) {
   const meme = getMemeForDisplay()
 
   if (!meme.imgUrl) {
     renderDefaultMsg()
     return
   }
-  const { imgUrl, lines } = meme
+  const { imgUrl, lines, selectedLineIdx: lineIdx } = meme
   const img = new Image()
   img.src = imgUrl
-  img.onload = () => {
-    // TODO: USER IMAGE
-    gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height)
-    renderLines(lines)
+  // for saving img without line focus
+
+  return new Promise((resolve, reject) => {
+    img.onload = () => {
+      // TODO: USER IMAGE
+      gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height)
+      renderLines(lines)
+      const color = save ? 'transparent' : 'black'
+      renderFocusToLine(lines[lineIdx], color)
+      resolve()
+    }
+  })
+}
+
+function lineFocus() {
+  debugger
+}
+
+function onRemoveLine() {
+  console.log('trsh')
+
+  renderCanvas(true)
+}
+function renderFocusToLine({ x, y, txt }, color) {
+  const { fontAscent, fontDecent, width } = getLineMeasures(txt)
+  setRectToTxt(x, y, fontAscent, fontDecent, width, color)
+}
+function setRectToTxt(x, y, fontAscent, fontDecent, width, color) {
+  gCtx.beginPath()
+  gCtx.strokeStyle = color || 'transparent'
+  gCtx.strokeRect(x - width / 2 - 5, y - fontAscent / 2, width + 10, fontDecent)
+  gCtx.closePath()
+}
+
+function getLineMeasures(txt) {
+  const {
+    fontBoundingBoxAscent: fontAscent,
+    fontBoundingBoxDescent: fontDecent,
+    width,
+  } = gCtx.measureText(txt)
+
+  return {
+    fontAscent,
+    fontDecent,
+    width,
   }
 }
 
@@ -41,7 +82,7 @@ function onAddLine() {
 function onChangeLine() {
   changeLine()
   renderInputValue()
-  // lineFocus()
+  renderCanvas()
 }
 
 function onUpdateLine(value, type) {
@@ -57,13 +98,15 @@ function renderInputValue() {
   const line = lines[idx]
   elInputs.forEach((input) => {
     const { name } = input
-    console.dir((input.value = line[name] || '#ffff'))
+    console.dir((input.value = line[name] || '#fd6dc8'))
   })
 }
 function renderLines(lines) {
   lines.forEach((line) => {
     const { fillColor, x, y, size, txt, strokeColor, align, font } = line
     // console.log('lines:', txt)
+    gCtx.beginPath()
+    gCtx.textBaseline = 'top'
     gCtx.font = `bold ${size}px ${font}`
     gCtx.fillStyle = fillColor
     gCtx.strokeStyle = strokeColor
@@ -72,6 +115,7 @@ function renderLines(lines) {
     gCtx.letterSpacing = '2px'
     gCtx.fillText(txt, x, y)
     gCtx.strokeText(txt, x, y)
+    gCtx.closePath()
     renderInputValue(line)
   })
 }
@@ -82,7 +126,8 @@ function renderDefaultMsg() {
   ).innerHTML = `<h1 class="default-msg">Select Meme from gallery to edit</h1>`
 }
 
-function onSave(elLink, type = 'save') {
+async function onSave(elLink, type = 'save') {
+  await renderCanvas(true)
   downloadCanvas(elLink, type, gCanvas)
 }
 

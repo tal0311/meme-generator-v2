@@ -80,6 +80,7 @@
           <section class="editor-panel grid flex a-center">
             <input
               oninput="onUpdateLine(this.value, 'txt')"
+              onfocus="lineFocus()"
               type="text"
               name="txt"
               id=""
@@ -97,7 +98,10 @@
                 class="fa-solid fa-sort"
                 onclick="onChangeLine()"
               ></button>
-              <button class="fa-solid fa-trash"></button>
+              <button
+                class="fa-solid fa-trash"
+                onclick="onRemoveLine()"
+              ></button>
             </div>
             <div class="line-bottom-panel">
               <button class="fa-solid fa-a"><i class="fa-plus"></i></button>
@@ -114,9 +118,17 @@
                   type="color"
                   name="fillColor"
                   value="#ff0000"
+                  list="colorlist"
                   oninput="onUpdateLine(this.value, 'fillColor')"
                 />
               </label>
+              <datalist id="colorlist">
+                <option value="#ce36ba"></option>
+                <option value="#36ce49"></option>
+                <option value="#bcce36"></option>
+                <option value="#ce4736"></option>
+                <option value="#36a0ce"></option>
+              </datalist>
               <select name="font-style" onchange="onFontSelect(this.value)">
                 <option value="impact">impact</option>
                 <option value="ariel">ariel</option>
