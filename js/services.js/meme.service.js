@@ -57,12 +57,16 @@ function getSavedForDisplay() {
   return loadFromStorage(SAVED_KEY)
 }
 
-function setMeme(memeId) {
+function setMeme(memeId, userMedia = false) {
   const meme = getMemeById(memeId)
   console.log('meme:', meme)
   if (meme) {
     gMeme.imgUrl = meme.url
     gMeme.selectedImgId = +memeId
+    return
+  }
+  if (userMedia) {
+    gMeme.imgUrl = userMedia
   }
   console.log('gMeme:', gMeme)
 }

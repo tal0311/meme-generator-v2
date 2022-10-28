@@ -67,6 +67,7 @@ async function getMediaDevices(elVideo) {
     video: true,
   }
   const stream = await navigator.mediaDevices.getUserMedia(constraints)
+
   elVideo.srcObject = stream
 }
 

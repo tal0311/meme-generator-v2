@@ -1,6 +1,7 @@
 var gCanvas
 var gCtx
 var gElVideo
+var gUserStream
 
 function initEditor() {
   gCanvas = document.querySelector('canvas')
@@ -9,7 +10,7 @@ function initEditor() {
   renderCanvas()
 }
 
-async function renderCanvas(save = null) {
+async function renderCanvas(save = null, userMedia) {
   const meme = getMemeForDisplay()
   if (!meme.imgUrl) {
     renderDefaultMsg()
@@ -19,19 +20,14 @@ async function renderCanvas(save = null) {
   const img = new Image()
   img.src = imgUrl
   // for saving img without line focus
-
   await img.decode()
-  gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height)
+  const media = userMedia ? userMedia : img
+  gCtx.drawImage(media, 0, 0, gCanvas.width, gCanvas.height)
   renderLines(lines)
   const color = save ? 'transparent' : 'black'
   renderFocusToLine(lines[lineIdx], color)
 
   // TODO: USER IMAGE
-}
-
-async function onSave(elLink, type = 'save') {
-  await renderCanvas(true)
-  downloadCanvas(elLink, type, gCanvas)
 }
 
 function onRemoveLine() {
@@ -122,17 +118,29 @@ function renderDefaultMsg() {
   ).innerHTML = `<h1 class="default-msg">Select Meme from gallery to edit</h1>`
 }
 
+async function onSave(elLink, type = 'save') {
+  await renderCanvas(true)
+  downloadCanvas(elLink, type, gCanvas)
+}
+
 function onShare() {
   console.log('share')
   uploadImg(gCanvas)
 }
-function onSnap() {
+async function onSnap() {
   const elDialog = document.querySelector('dialog')
-  elDialog.showModal()
+  elDialog.show()
   getMediaDevices(gElVideo)
 }
 
-function takePhoto() {
+async function takePhoto() {
   console.log('take photo')
-  // renderEditor(gElVideo)
+  const elDialog = document.querySelector('dialog')
+  elDialog.close()
+  gCtx.drawImage(gElVideo, 0, 0, gCanvas.width, gCanvas.height)
+  // await renderCanvas(false, gElVideo)
+  var dataUrl = gCanvas.toDataURL()
+  setMeme(null, dataUrl)
+  renderCanvas()
+  gElVideo.srcObject = null
 }
