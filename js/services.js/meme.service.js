@@ -72,6 +72,11 @@ function addLine(x, y) {
   createLine('Enter your text', x, y)
 }
 
+function removeLine() {
+  const { selectedLineIdx: idx } = gMeme
+  gMeme.lines.splice(idx, 1)
+}
+
 function changeLine() {
   const { selectedLineIdx: idx, lines } = gMeme
   console.log('lines.length:  ', lines.length)

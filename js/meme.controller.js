@@ -9,9 +9,8 @@ function initEditor() {
   renderCanvas()
 }
 
-function renderCanvas(save = null) {
+async function renderCanvas(save = null) {
   const meme = getMemeForDisplay()
-
   if (!meme.imgUrl) {
     renderDefaultMsg()
     return
@@ -21,25 +20,22 @@ function renderCanvas(save = null) {
   img.src = imgUrl
   // for saving img without line focus
 
-  return new Promise((resolve, reject) => {
-    img.onload = () => {
-      // TODO: USER IMAGE
-      gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height)
-      renderLines(lines)
-      const color = save ? 'transparent' : 'black'
-      renderFocusToLine(lines[lineIdx], color)
-      resolve()
-    }
-  })
+  await img.decode()
+  gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height)
+  renderLines(lines)
+  const color = save ? 'transparent' : 'black'
+  renderFocusToLine(lines[lineIdx], color)
+
+  // TODO: USER IMAGE
 }
 
-function lineFocus() {
-  debugger
+async function onSave(elLink, type = 'save') {
+  await renderCanvas(true)
+  downloadCanvas(elLink, type, gCanvas)
 }
 
 function onRemoveLine() {
-  console.log('trsh')
-
+  removeLine()
   renderCanvas(true)
 }
 function renderFocusToLine({ x, y, txt }, color) {
@@ -124,11 +120,6 @@ function renderDefaultMsg() {
   document.querySelector(
     '.meme-editor'
   ).innerHTML = `<h1 class="default-msg">Select Meme from gallery to edit</h1>`
-}
-
-async function onSave(elLink, type = 'save') {
-  await renderCanvas(true)
-  downloadCanvas(elLink, type, gCanvas)
 }
 
 function onShare() {
