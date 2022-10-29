@@ -1,5 +1,5 @@
 const SAVED_KEY = 'savedDB'
-
+var gFilterBy = 'ALL'
 var gSearchCountMap = { funny: 12, cat: 16, baby: 2 }
 
 var gImgs = [
@@ -54,9 +54,15 @@ var gMeme = {
 }
 
 function getImagesForDisplay() {
-  return gImgs
+  let imgs = gImgs
+  imgs = _filterImgs(gFilterBy, gImgs)
+  return imgs.length > 1 ? imgs : gImgs
 }
 
+function _filterImgs(topic, imgs) {
+  if (gFilterBy === 'ALL') return imgs
+  return imgs.filter((img) => img.keywords.includes(topic))
+}
 function getMemeForDisplay() {
   return gMeme
 }
@@ -65,6 +71,13 @@ function getSavedForDisplay() {
   return loadFromStorage(SAVED_KEY)
 }
 
+function setOptsForFilter() {
+  let keywords = gImgs
+    .map((img) => img.keywords.join(','))
+    .join(',')
+    .split(',')
+  return ['ALL', ...new Set(keywords)]
+}
 function setMeme(memeId, userMedia = false) {
   debugger
   const meme = getMemeById(memeId)
@@ -131,4 +144,8 @@ function createLine(txt, x, y) {
     y,
     x,
   })
+}
+
+function filterBy(topic) {
+  gFilterBy = topic
 }

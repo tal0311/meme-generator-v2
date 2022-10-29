@@ -1,6 +1,7 @@
-function onInit() {
+function initGallery() {
   console.log('%c Gallery init', 'color:lightgreen')
   navigateTo()
+  renderFilterOpts()
 }
 
 function navigateTo(route = 'gallery') {
@@ -59,4 +60,23 @@ function renderGallery() {
 function onSelectMeme(memeId) {
   setMeme(memeId)
   navigateTo('editor')
+}
+
+function renderFilterOpts() {
+  const opts = setOptsForFilter()
+  const strHtmls = opts
+    .map((opt) => {
+      return `
+        <option value="${opt}">${opt}</option>
+         `
+    })
+    .join('')
+
+  document.querySelector('#topics').innerHTML = strHtmls
+}
+
+function onSelectTopic(topic) {
+  console.log('topic:', topic)
+  filterBy(topic)
+  renderGallery()
 }

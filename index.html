@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="css/style.css" />
     <title>Meme generator V2</title>
   </head>
-  <body class="grid" onload="onInit()">
+  <body class="grid" onload="initGallery()">
     <!-- <i class="fa-solid fa-bars"></i>
     <i class="fa-solid fa-copy"></i>
     <i class="fa-solid fa-trash"></i>
@@ -59,14 +59,10 @@
       </div>
     </header>
     <section class="app-filter">
-      <label for="ice-cream-choice">Choose a flavor:</label>
-      <input list="topics" name="topics" />
+      <label for="ice-cream-choice">Choose a topic:</label>
+      <input list="topics" name="topics" oninput="onSelectTopic(this.value)" />
 
-      <datalist id="topics">
-        <option value="politics">politics</option>
-        <option value="baby">baby</option>
-        <option value="funny">funny</option>
-      </datalist>
+      <datalist id="topics"></datalist>
 
       <section class="search-word-container">
         <span>funny</span><span>politics</span><span>baby</span>
@@ -198,8 +194,15 @@
       </section>
     </main>
     <section class="about">
-      <article class="developer-info">
-        <img src="assets//images/tal-profile-croped.jpg" alt="" />
+      <article class="developer-info flex">
+        <div class="img-container">
+          <img src="assets//images/tal-profile-croped.jpg" alt="" />
+          <div class="social-container flex">
+            <i class="fa-brands fa-square-facebook"></i>
+            <i class="fa-brands fa-linkedin"></i>
+            <i class="fa-solid fa-at"></i>
+          </div>
+        </div>
         <div class="info-container">
           <h4>Tal Amit - Fullstack developer</h4>
           <p>
