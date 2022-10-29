@@ -53,7 +53,7 @@ function downloadCanvas(elLink, type, canvas) {
 }
 
 function saveMeme(data) {
-  gMeme.imgUrl = data
+  gMeme.cover = data
   gMeme.id = makeId()
   delete gMeme.selectedImgId
   var savedMemes = loadFromStorage(SAVED_KEY) || []

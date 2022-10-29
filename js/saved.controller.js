@@ -14,10 +14,10 @@ function renderSaved() {
   }
   const strHtmls = images
     .map((img) => {
-      const { imgUrl, id } = img
+      const { cover, id } = img
       return `
     <article class="image-preview" onclick="onSelectMeme('${id}')" >
-            <img src="${imgUrl}" alt="" />
+            <img src="${cover}" alt="" />
     </article>
     `
     })
