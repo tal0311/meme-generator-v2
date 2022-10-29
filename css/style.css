@@ -1,3 +1,17 @@
+/* fonts */
+@font-face {
+  font-family: LuckiestGuy;
+  src: url(./../assets/fonts/LuckiestGuy-Regular.ttf);
+}
+@font-face {
+  font-family: PoppinsExtraLight;
+  src: url(./../assets/fonts/Poppins-ExtraLight.ttf);
+}
+
+@font-face {
+  font-family: PoppinsRegular;
+  src: url(./../assets/fonts/Poppins-Regular.ttf);
+}
 /* base */
 * {
 }
@@ -5,6 +19,7 @@ html {
 }
 body {
   color: #ffff;
+  font-family: poppinsRegular;
 }
 
 h1,
@@ -71,6 +86,11 @@ header {
 .header-container {
   height: 100%;
   /* background: lightgreen; */
+}
+
+.header-container .logo {
+  font-family: LuckiestGuy;
+  letter-spacing: 2px;
 }
 .app-filter {
   grid-area: filter;
