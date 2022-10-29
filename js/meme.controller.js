@@ -171,7 +171,6 @@ async function takePhoto() {
   const elDialog = document.querySelector('dialog')
   elDialog.close()
   gCtx.drawImage(gElVideo, 0, 0, gCanvas.width, gCanvas.height)
-  // await renderCanvas(false, gElVideo)
   var dataUrl = gCanvas.toDataURL()
   setMeme(null, dataUrl)
   renderCanvas()
