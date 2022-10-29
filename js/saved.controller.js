@@ -1,5 +1,5 @@
 function initSaved() {
-  console.log('%c Gallery init', 'color:lightgreen')
+  console.log('%c Saved init', 'color:lightgreen')
   renderSaved()
 }
 
@@ -14,9 +14,9 @@ function renderSaved() {
   }
   const strHtmls = images
     .map((img) => {
-      const { imgUrl } = img
+      const { imgUrl, id } = img
       return `
-    <article class="image-preview">
+    <article class="image-preview" onclick="onSelectMeme('${id}')" >
             <img src="${imgUrl}" alt="" />
     </article>
     `

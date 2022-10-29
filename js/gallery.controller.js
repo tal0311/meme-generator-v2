@@ -34,10 +34,10 @@ function renderGallery() {
 
   const strHtmls = images
     .map((img) => {
-      const { id, url } = img
+      const { id, imgUrl } = img
       return `
     <article class="image-preview" onclick="onSelectMeme('${id}')">
-            <img src="${url}" alt="" />
+            <img src="${imgUrl}" alt="" />
     </article>
     `
     })

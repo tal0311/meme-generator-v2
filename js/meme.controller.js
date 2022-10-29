@@ -136,6 +136,8 @@ function renderDefaultMsg() {
 async function onSave(elLink, type = 'save') {
   await renderCanvas(true)
   downloadCanvas(elLink, type, gCanvas)
+  const route = type === 'save' ? 'saved' : 'gallery'
+  navigateTo(route)
 }
 
 function onShare() {
