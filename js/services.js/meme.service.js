@@ -1,6 +1,6 @@
 const SAVED_KEY = 'savedDB'
 var gFilterBy = 'ALL'
-var gSearchCountMap = { funny: 12, cat: 16, baby: 2 }
+var gSearchCountMap = { funny: 24, cat: 16, baby: 32, politics: 28, baby: 40 }
 
 var gImgs = [
   {
@@ -84,6 +84,10 @@ function getMemeForDisplay() {
 
 function getSavedForDisplay() {
   return loadFromStorage(SAVED_KEY)
+}
+
+function getKeyWords() {
+  return gSearchCountMap
 }
 
 function setLineDrag(selectedLine) {

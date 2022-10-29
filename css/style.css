@@ -98,6 +98,27 @@ header {
   background: var(--clr1);
 }
 
+.app-filter-container {
+  align-items: center;
+  height: 100%;
+}
+
+.app-filter input {
+  margin-inline-start: 1em;
+  padding: 0.5em 0.8em;
+  border-radius: 0.5em;
+  border: none;
+}
+.app-filter input:focus {
+  outline-color: var(--clr1);
+}
+.search-word-container {
+  margin-inline-start: auto;
+}
+.search-word-container > * {
+  margin-inline-start: 2em;
+}
+
 body.grid.editor {
   grid-template-columns: 1fr;
   grid-template-rows: 50px 50px 1fr 100px;

@@ -50,7 +50,6 @@ function onRemoveLine() {
 }
 function renderFocusToLine({ x, y, txt, align }, color) {
   const measures = getLineMeasures(txt)
-  // setRectToTxt(x, y, fontAscent, fontDecent, width, color)
   setRectToTxt(x, y, align, measures, color)
 }
 function setRectToTxt(x, y, align, measures, color) {
@@ -111,7 +110,6 @@ function onChangeLine() {
 }
 
 function onUpdateLine(value, type) {
-  // debugger
   updateLine(value, type)
   renderCanvas()
 }
@@ -130,7 +128,6 @@ function renderInputValue() {
 function renderLines(lines) {
   lines.forEach((line) => {
     const { fillColor, x, y, size, txt, strokeColor, align, font } = line
-    // console.log('lines:', txt)
     gCtx.beginPath()
     gCtx.textBaseline = 'top'
     gCtx.font = `bold ${size}px ${font}`
@@ -208,20 +205,14 @@ function onDown(ev) {
   line = isLineClicked(pos)
   if (!line) return
   setLineDrag(line)
-
   document.body.style.cursor = 'grabbing'
 }
 
 function onMove(ev) {
   const { lineDragIdx: idx, lines } = getMemeForDisplay()
-  // const circle = getCircle()
   if (!lines[idx]?.isDrag) return
-  // debugger
   const pos = getEvPos(ev)
-  // const dx = pos.x - gStartPos.x
-  // const dy = pos.y - gStartPos.y
   moveCircle(pos)
-
   renderCanvas()
 }
 

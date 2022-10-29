@@ -2,6 +2,7 @@ function initGallery() {
   console.log('%c Gallery init', 'color:lightgreen')
   navigateTo()
   renderFilterOpts()
+  renderKeyWords()
 }
 
 function navigateTo(route = 'gallery') {
@@ -75,6 +76,16 @@ function renderFilterOpts() {
   document.querySelector('#topics').innerHTML = strHtmls
 }
 
+function renderKeyWords() {
+  const opts = getKeyWords()
+  let strHtmls = ''
+
+  for (const key in opts) {
+    strHtmls += `<span style="font-size:${opts[key]}px" >${key}</span>`
+  }
+
+  document.querySelector('.search-word-container').innerHTML = strHtmls
+}
 function onSelectTopic(topic) {
   console.log('topic:', topic)
   filterBy(topic)
