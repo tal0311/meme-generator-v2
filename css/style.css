@@ -4,6 +4,7 @@
 html {
 }
 body {
+  color: #ffff;
 }
 
 h1,
@@ -16,10 +17,19 @@ h5 {
 p {
 }
 button {
+  font-size: 2em;
+  background: none;
+  border-radius: 0.2em;
 }
 button:hover {
 }
 a {
+  text-decoration: none;
+  color: inherit;
+}
+a.active {
+  color: #537bc4;
+  text-decoration: overline;
 }
 
 input[type='color'] {
@@ -37,7 +47,10 @@ body {
   overflow: hidden;
 }
 /* vars */
-
+:root {
+  --clr1: #537bc4;
+  --clr2: #35495e;
+}
 /* components */
 body.grid {
   grid-template-columns: 1fr;
@@ -52,18 +65,31 @@ body.grid {
 
 header {
   grid-area: header;
-  background: lightblue;
+  background: var(--clr2);
 }
 
 .header-container {
   height: 100%;
-  background: lightgreen;
+  /* background: lightgreen; */
 }
 .app-filter {
   grid-area: filter;
-  background: lightcoral;
+  background: var(--clr1);
 }
 
+body.grid.editor {
+  grid-template-columns: 1fr;
+  grid-template-rows: 50px 50px 1fr 100px;
+  grid-template-areas:
+    'header'
+    'filter'
+    'main'
+    'footer';
+}
+
+body.editor .about {
+  display: none;
+}
 main {
   overflow-y: auto;
   grid-area: main;
@@ -71,11 +97,11 @@ main {
 }
 .about {
   grid-area: about;
-  background: lightsalmon;
+  background: var(--clr1);
 }
 footer {
   grid-area: footer;
-  background: lightseagreen;
+  background: var(--clr2);
 }
 
 /* editor */
@@ -104,15 +130,17 @@ footer {
 }
 /* meme editor */
 .meme-editor-container {
-  background: red;
-  gap: 10em;
+  /* background: red; */
+  padding: 0.5em 0;
+  gap: 5%;
 }
 .meme-editor-container > * {
   height: auto;
   max-width: 500px;
 }
 .editor-panel {
-  background: lightsalmon;
+  box-shadow: 0 0 3px 0px black;
+  border-radius: 0.8em;
 }
 
 .line-bottom-panel img {
@@ -122,10 +150,14 @@ footer {
 
 .editor-panel.grid {
   display: grid;
-
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  /* flex: 1; */
+  padding: 0 1em;
+  /* grid-template-columns: 1fr 1fr 1fr 1fr 1fr; */
+  grid-template-columns: 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
   gap: 0px 0px;
+  text-align: center;
+  justify-items: center;
   grid-auto-flow: row;
   grid-template-areas:
     'line-input line-input line-input line-input line-input'
@@ -135,21 +167,26 @@ footer {
     'sheare-container sheare-container sheare-container sheare-container sheare-container';
 }
 
-input[name='line-txt'] {
+input[name='txt'] {
   grid-area: line-input;
-  height: 50%;
-  border-radius: 1em;
+  width: 90%;
   border: none;
-  font-size: 1.5em;
+  font-size: 1em;
   padding-inline-start: 1em;
+  padding: 1em;
+  border-radius: 0.8em;
+  box-shadow: inset 0 0 2px black;
+  border: none;
 }
 
 .line-top-panel {
   grid-area: top-panel;
+  /* width: 100%; */
 }
-
 .line-bottom-panel {
   grid-area: bottom-panel;
+  /* flex-wrap: wrap;
+  height: 100%; */
 }
 
 label[for='fillColor'] {
@@ -166,6 +203,9 @@ label[for='fillColor'] {
 
 /* helpers */
 
+/* .fill {
+  flex-basis: 20%;
+} */
 .grid {
   display: grid;
 }

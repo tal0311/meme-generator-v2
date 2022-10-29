@@ -45,9 +45,16 @@
       <div class="header-container flex a-center s-between">
         <div class="logo">Meme-generator</div>
         <nav>
-          <a onclick="navigateTo('gallery')" href="#">Gallery</a> |
-          <a onclick="navigateTo('editor')" href="#">Editor</a> |
-          <a onclick="navigateTo('saved')" href="#">Saved</a>
+          <a
+            class="active"
+            name="gallery"
+            onclick="navigateTo('gallery')"
+            href="#"
+            >Gallery</a
+          >
+          |
+          <a name="editor" onclick="navigateTo('editor')" href="#">Editor</a> |
+          <a name="saved" onclick="navigateTo('saved')" href="#">Saved</a>
         </nav>
       </div>
     </header>
@@ -75,7 +82,7 @@
       <section class="editor page meme-editor" hidden>
         <div class="meme-editor-container flex j-center">
           <section class="canvas-container">
-            <canvas width="500" height="500"></canvas>
+            <canvas width="450" height="450"></canvas>
           </section>
           <section class="editor-panel grid flex a-center">
             <input
@@ -109,56 +116,76 @@
               ></button>
             </div>
             <div class="line-bottom-panel">
-              <button class="fa-solid fa-a" onclick="onUpdateLine(5, 'size')">
-                <i class="fa-plus"></i>
-              </button>
-              <button class="fa-solid fa-a" onclick="onUpdateLine(-5, 'size')">
-                <i class="fa-solid fa-minus"></i>
-              </button>
-              <button
-                class="fa-solid fa-align-right"
-                onclick="onUpdateLine('right', 'align')"
-              ></button>
-              <button
-                class="fa-solid fa-align-center"
-                onclick="onUpdateLine('center', 'align')"
-              ></button>
-              <button
-                class="fa-solid fa-align-left"
-                onclick="onUpdateLine('left', 'align')"
-              ></button>
-              <button class="fa-solid fa-paint-roller"></button>
-              <label class="fa-solid fa-palette" for="fillColor">
-                <input
-                  id="fillColor"
-                  type="color"
-                  name="fillColor"
-                  value="#ff0000"
-                  oninput="onUpdateLine(this.value, 'fillColor')"
-                />
-              </label>
-              <select name="font" onchange="onUpdateLine(this.value, 'font')">
-                <option value="impact">impact</option>
-                <option value="ariel">ariel</option>
-              </select>
+              <div class="line-bottom-pane-primary">
+                <button
+                  class="fill fa-solid fa-a"
+                  onclick="onUpdateLine(5, 'size')"
+                >
+                  <i class="fa-plus"></i>
+                </button>
+                <button
+                  class="fill fa-solid fa-a"
+                  onclick="onUpdateLine(-5, 'size')"
+                >
+                  <i class="fa-solid fa-minus"></i>
+                </button>
+                <button
+                  class="fill fa-solid fa-align-right"
+                  onclick="onUpdateLine('right', 'align')"
+                ></button>
+                <button
+                  class="fill fa-solid fa-align-center"
+                  onclick="onUpdateLine('center', 'align')"
+                ></button>
+                <button
+                  class="fill fa-solid fa-align-left"
+                  onclick="onUpdateLine('left', 'align')"
+                ></button>
+              </div>
+              <div class="line-bottom-pane-secondary">
+                <button class="fa-solid fa-paint-roller"></button>
+                <label class="fa-solid fa-palette" for="fillColor">
+                  <input
+                    id="fillColor"
+                    type="color"
+                    name="fillColor"
+                    value="#ff0000"
+                    oninput="onUpdateLine(this.value, 'fillColor')"
+                  />
+                </label>
+
+                <select name="font" onchange="onUpdateLine(this.value, 'font')">
+                  <option value="impact">impact</option>
+                  <option value="ariel">ariel</option>
+                </select>
+              </div>
             </div>
             <div class="emojis-container">emojis</div>
             <div class="share-download-container">
-              <a
-                title="DownLoad meme as image"
-                href="#"
-                onclick="onSave(this)"
-                download="canvas-img.jpg"
-                >Download</a
-              >
-              <button title="Save meme" onclick="onSave(null,'save')">
-                save
+              <button class="fa-solid fa-download">
+                <a
+                  title="DownLoad meme as image"
+                  href="#"
+                  onclick="onSave(this)"
+                  download="canvas-img.jpg"
+                ></a>
               </button>
-              <button title="Share to faceBook" onclick="onShare()">
-                share
-              </button>
-              <button title="Upload image">upload</button>
-              <button title="Take photo" onclick="onSnap()">snap</button>
+              <button
+                class="fa-solid fa-bookmark"
+                title="Save meme"
+                onclick="onSave(null,'save')"
+              ></button>
+              <button
+                class="fa-solid fa-share-nodes"
+                title="Share to faceBook"
+                onclick="onShare()"
+              ></button>
+              <button class="fa-solid fa-upload" title="Upload image"></button>
+              <button
+                class="fa-solid fa-camera"
+                title="Take photo"
+                onclick="onSnap()"
+              ></button>
             </div>
           </section>
         </div>

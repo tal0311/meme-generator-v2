@@ -4,6 +4,8 @@ var gElVideo
 var gUserStream
 
 function initEditor() {
+  const elBody = document.querySelector('body')
+  elBody.classList.add('editor')
   gCanvas = document.querySelector('canvas')
   gCtx = gCanvas.getContext('2d')
   gElVideo = document.querySelector('video')

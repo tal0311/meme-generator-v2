@@ -5,12 +5,23 @@ function onInit() {
 
 function navigateTo(route = 'editor') {
   const pages = [...document.querySelectorAll('.page')]
+  const elBody = document.querySelector('body')
   pages.forEach((page) => {
-    return !page.classList.contains(route)
+    route === 'gallery' && elBody.classList.remove('editor')
+    !page.classList.contains(route)
       ? (page.hidden = true)
       : (page.hidden = false)
   })
   renderBy(route)
+  setActiveClass(route)
+}
+
+function setActiveClass(route) {
+  const elLinks = document.querySelectorAll('header a')
+  elLinks.forEach((link) => {
+    link.classList.remove('active')
+    if (link.name === route) link.classList.add('active')
+  })
 }
 
 function renderBy(route) {
