@@ -34,25 +34,39 @@ function onRemoveLine() {
   removeLine()
   renderCanvas(true)
 }
-function renderFocusToLine({ x, y, txt }, color) {
-  const { fontAscent, fontDecent, width } = getLineMeasures(txt)
-  setRectToTxt(x, y, fontAscent, fontDecent, width, color)
+function renderFocusToLine({ x, y, txt, align }, color) {
+  const measures = getLineMeasures(txt)
+  // setRectToTxt(x, y, fontAscent, fontDecent, width, color)
+  setRectToTxt(x, y, align, measures, color)
 }
-function setRectToTxt(x, y, fontAscent, fontDecent, width, color) {
+function setRectToTxt(x, y, align, measures, color) {
+  const { width, fontAscent, fontDecent } = measures
+  const xAlign = setXAlignment(measures, align, x)
   gCtx.beginPath()
   gCtx.strokeStyle = color || 'transparent'
-  gCtx.strokeRect(x - width / 2 - 5, y - fontAscent / 2, width + 10, fontDecent)
+  gCtx.strokeRect(xAlign - 10, y - fontAscent / 2, width + 20, fontDecent)
   gCtx.closePath()
 }
 
+function setXAlignment(measures, align, x) {
+  const { width, rightAlign } = measures
+  alignOpts = {
+    center: x - rightAlign,
+    right: x - width,
+    default: x,
+  }
+  return alignOpts[align] || alignOpts['default']
+}
 function getLineMeasures(txt) {
   const {
+    actualBoundingBoxRight: rightAlign,
     fontBoundingBoxAscent: fontAscent,
     fontBoundingBoxDescent: fontDecent,
     width,
   } = gCtx.measureText(txt)
 
   return {
+    rightAlign,
     fontAscent,
     fontDecent,
     width,
@@ -78,6 +92,7 @@ function onChangeLine() {
 }
 
 function onUpdateLine(value, type) {
+  // debugger
   updateLine(value, type)
   renderCanvas()
 }

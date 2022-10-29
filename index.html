@@ -86,8 +86,14 @@
               placeholder="Enter line text"
             />
             <div class="line-top-panel">
-              <button class="fa-solid fa-arrow-up"></button>
-              <button class="fa-solid fa-arrow-down"></button>
+              <button
+                class="fa-solid fa-arrow-up"
+                onclick="onUpdateLine(-5, 'y')"
+              ></button>
+              <button
+                class="fa-solid fa-arrow-down"
+                onclick="onUpdateLine(5, 'y')"
+              ></button>
               <button
                 title="Add new line"
                 class="fa-solid fa-plus"
@@ -103,13 +109,24 @@
               ></button>
             </div>
             <div class="line-bottom-panel">
-              <button class="fa-solid fa-a"><i class="fa-plus"></i></button>
-              <button class="fa-solid fa-a">
+              <button class="fa-solid fa-a" onclick="onUpdateLine(5, 'size')">
+                <i class="fa-plus"></i>
+              </button>
+              <button class="fa-solid fa-a" onclick="onUpdateLine(-5, 'size')">
                 <i class="fa-solid fa-minus"></i>
               </button>
-              <button class="fa-solid fa-align-right"></button>
-              <button class="fa-solid fa-align-center"></button>
-              <button class="fa-solid fa-align-left"></button>
+              <button
+                class="fa-solid fa-align-right"
+                onclick="onUpdateLine('right', 'align')"
+              ></button>
+              <button
+                class="fa-solid fa-align-center"
+                onclick="onUpdateLine('center', 'align')"
+              ></button>
+              <button
+                class="fa-solid fa-align-left"
+                onclick="onUpdateLine('left', 'align')"
+              ></button>
               <button class="fa-solid fa-paint-roller"></button>
               <label class="fa-solid fa-palette" for="fillColor">
                 <input
@@ -117,18 +134,10 @@
                   type="color"
                   name="fillColor"
                   value="#ff0000"
-                  list="colorlist"
                   oninput="onUpdateLine(this.value, 'fillColor')"
                 />
               </label>
-              <datalist id="colorlist">
-                <option value="#ce36ba"></option>
-                <option value="#36ce49"></option>
-                <option value="#bcce36"></option>
-                <option value="#ce4736"></option>
-                <option value="#36a0ce"></option>
-              </datalist>
-              <select name="font-style" onchange="onFontSelect(this.value)">
+              <select name="font" onchange="onUpdateLine(this.value, 'font')">
                 <option value="impact">impact</option>
                 <option value="ariel">ariel</option>
               </select>
@@ -179,7 +188,6 @@
     <script src="js/services.js/util.service.js"></script>
     <script src="js/services.js/storage.service.js"></script>
     <script src="js/services.js/meme.service.js"></script>
-
     <script src="js/saved.controller.js"></script>
     <script src="js/gallery.controller.js"></script>
     <script src="js/meme.controller.js"></script>

@@ -33,7 +33,7 @@ var gMeme = {
   imgUrl: 'assets/images/2.jpg',
   lines: [
     {
-      txt: 'I sometimes eat Falafel',
+      txt: 'I sometimes',
       size: 40,
       align: 'center',
       fillColor: '#ce3636',
@@ -100,9 +100,12 @@ function setLineProps(key, value) {
   const { selectedLineIdx: idx } = gMeme
   gMeme.lines[idx][key] = value
 }
+
 function updateLine(value, type) {
   const { selectedLineIdx: idx } = gMeme
-  gMeme.lines[idx][type] = value
+  typeof value === 'number'
+    ? (gMeme.lines[idx][type] += value)
+    : (gMeme.lines[idx][type] = value)
 }
 function createLine(txt, x, y) {
   gMeme.lines.push({
