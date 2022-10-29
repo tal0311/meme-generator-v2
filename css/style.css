@@ -231,6 +231,9 @@ input[name='txt'] {
   /* flex-wrap: wrap;
   height: 100%; */
 }
+.line-bottom-pane-primary {
+  margin-bottom: 0.5em;
+}
 
 label[for='fillColor'] {
   position: relative;
@@ -242,6 +245,13 @@ label[for='fillColor'] {
 
 .share-download-container {
   grid-area: sheare-container;
+}
+.emojis-list {
+  box-shadow: 0 0 3px 0px black;
+  border-radius: 0.8em;
+}
+.emoji {
+  font-size: 3em;
 }
 
 /* helpers */

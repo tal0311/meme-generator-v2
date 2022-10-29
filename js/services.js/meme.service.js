@@ -39,6 +39,7 @@ var gMeme = {
   selectedImgId: 5,
   selectedLineIdx: 0,
   imgUrl: 'assets/images/2.jpg',
+  lineDragIdx: null,
   lines: [
     {
       txt: 'I sometimes',
@@ -47,10 +48,24 @@ var gMeme = {
       fillColor: '#ce3636',
       strokeColor: '#00000',
       font: 'impact',
-      x: 250,
+      x: 225,
       y: 50,
+      isDrag: false,
     },
   ],
+  emojis: [],
+}
+
+function addEmoji(value) {
+  gMeme.emojis.push(crateEmoji(value))
+}
+function crateEmoji(content) {
+  return {
+    content,
+    x: gCanvas.width / 2,
+    y: gCanvas.height / 2,
+    size: 48,
+  }
 }
 
 function getImagesForDisplay() {
@@ -71,6 +86,31 @@ function getSavedForDisplay() {
   return loadFromStorage(SAVED_KEY)
 }
 
+function setLineDrag(selectedLine) {
+  idx = gMeme.lines.findIndex(
+    (line) => line.x && line.y === selectedLine.y && selectedLine.x
+  )
+  gMeme.lines[idx].isDrag = !gMeme.lines[idx].isDrag
+  gMeme.lineDragIdx = idx
+  if (!gMeme.lines[idx].isDrag) gMeme.lineDragIdx = null
+}
+
+function isLineClicked({ offsetX, offsetY }) {
+  const line = gMeme.lines.find((line) => {
+    return offsetY >= line.y && offsetY <= offsetY + line.y
+  })
+
+  const emoji = gMeme.emojis.find((emoji) => {
+    return offsetY >= line.y && offsetY <= offsetY + line.y
+  })
+  return line || emoji
+}
+
+function moveCircle({ offsetX, offsetY }) {
+  const { lineDragIdx: idx } = gMeme
+  gMeme.lines[idx].y = offsetY
+  gMeme.lines[idx].x = offsetX
+}
 function setOptsForFilter() {
   let keywords = gImgs
     .map((img) => img.keywords.join(','))
@@ -79,7 +119,6 @@ function setOptsForFilter() {
   return ['ALL', ...new Set(keywords)]
 }
 function setMeme(memeId, userMedia = false) {
-  debugger
   const meme = getMemeById(memeId)
   console.log('meme:', meme)
   if (meme) {

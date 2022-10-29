@@ -1,7 +1,7 @@
 var gCanvas
 var gCtx
 var gElVideo
-var gUserStream
+const gTouchEvs = ['touchstart', 'touchmove', 'touchend']
 
 function initEditor() {
   const elBody = document.querySelector('body')
@@ -9,6 +9,7 @@ function initEditor() {
   gCanvas = document.querySelector('canvas')
   gCtx = gCanvas.getContext('2d')
   gElVideo = document.querySelector('video')
+  addListeners()
   renderCanvas()
 }
 
@@ -18,7 +19,7 @@ async function renderCanvas(save = null, userMedia) {
     renderDefaultMsg()
     return
   }
-  const { imgUrl, lines, selectedLineIdx: lineIdx } = meme
+  const { imgUrl, lines, selectedLineIdx: lineIdx, emojis } = meme
   const img = new Image()
   img.src = imgUrl
   // for saving img without line focus
@@ -28,8 +29,19 @@ async function renderCanvas(save = null, userMedia) {
   renderLines(lines)
   const color = save ? 'transparent' : 'black'
   renderFocusToLine(lines[lineIdx], color)
+  renderEmojis(emojis)
+}
 
-  // TODO: USER IMAGE
+function renderEmojis(emojis) {
+  if (!emojis.length) return
+
+  emojis.forEach((emoji) => {
+    const { x, y, size, content } = emoji
+    gCtx.beginPath()
+    gCtx.font = `bold ${size}px`
+    gCtx.strokeText(content, x, y)
+    gCtx.closePath()
+  })
 }
 
 function onRemoveLine() {
@@ -87,6 +99,11 @@ function onAddLine() {
   renderCanvas()
 }
 
+function onSelectEmoji(value) {
+  addEmoji(value)
+  renderCanvas()
+}
+
 function onChangeLine() {
   changeLine()
   renderInputValue()
@@ -107,7 +124,7 @@ function renderInputValue() {
   const line = lines[idx]
   elInputs.forEach((input) => {
     const { name } = input
-    console.dir((input.value = line[name] || '#fd6dc8'))
+    input.value = line[name]
   })
 }
 function renderLines(lines) {
@@ -162,4 +179,75 @@ async function takePhoto() {
   setMeme(null, dataUrl)
   renderCanvas()
   gElVideo.srcObject = null
+}
+
+function addListeners() {
+  addMouseListeners()
+  addTouchListeners()
+  window.addEventListener('resize', () => {
+    resizeCanvas()
+    const center = { x: gCanvas.width / 2, y: gCanvas.height / 2 }
+    createCircle(center)
+    renderCanvas()
+  })
+}
+function addMouseListeners() {
+  gCanvas.addEventListener('mousemove', onMove)
+  gCanvas.addEventListener('mousedown', onDown)
+  gCanvas.addEventListener('mouseup', onUp)
+}
+
+function addTouchListeners() {
+  gCanvas.addEventListener('touchmove', onMove)
+  gCanvas.addEventListener('touchstart', onDown)
+  gCanvas.addEventListener('touchend', onUp)
+}
+
+function onDown(ev) {
+  const pos = getEvPos(ev)
+  line = isLineClicked(pos)
+  if (!line) return
+  setLineDrag(line)
+
+  document.body.style.cursor = 'grabbing'
+}
+
+function onMove(ev) {
+  const { lineDragIdx: idx, lines } = getMemeForDisplay()
+  // const circle = getCircle()
+  if (!lines[idx]?.isDrag) return
+  // debugger
+  const pos = getEvPos(ev)
+  // const dx = pos.x - gStartPos.x
+  // const dy = pos.y - gStartPos.y
+  moveCircle(pos)
+
+  renderCanvas()
+}
+
+function onUp() {
+  const { lines, lineDragIdx: idx } = getMemeForDisplay()
+  setLineDrag(lines[idx])
+  document.body.style.cursor = 'grab'
+}
+function resizeCanvas() {
+  const elContainer = document.querySelector('.canvas-container')
+  gCanvas.width = elContainer.offsetWidth
+  gCanvas.height = elContainer.offsetHeight
+}
+
+function getEvPos(ev) {
+  var pos = {
+    offsetX: ev.offsetX,
+    offsetY: ev.offsetY,
+  }
+  if (gTouchEvs.includes(ev.type)) {
+    ev.preventDefault()
+    ev = ev.changedTouches[0]
+    pos = {
+      offsetX: ev.pageX - ev.target.offsetLeft,
+      offsetY: ev.pageY - ev.target.offsetTop,
+    }
+  }
+  return pos
 }
