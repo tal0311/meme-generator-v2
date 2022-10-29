@@ -3,7 +3,7 @@ function onInit() {
   navigateTo()
 }
 
-function navigateTo(route = 'editor') {
+function navigateTo(route = 'gallery') {
   const pages = [...document.querySelectorAll('.page')]
   const elBody = document.querySelector('body')
   pages.forEach((page) => {
