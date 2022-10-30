@@ -83,7 +83,7 @@ function getMemeForDisplay() {
 }
 
 function getSavedForDisplay() {
-  return loadFromStorage(SAVED_KEY)
+  return loadFromStorage(SAVED_KEY) || []
 }
 
 function getKeyWords() {

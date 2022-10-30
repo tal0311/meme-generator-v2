@@ -56,9 +56,11 @@ function setRectToTxt(x, y, align, measures, color) {
   const { width, fontAscent, fontDecent } = measures
   const xAlign = setXAlignment(measures, align, x)
   gCtx.beginPath()
-  gCtx.strokeStyle = color || 'transparent'
+  gCtx.strokeStyle = '#537bc4'
   gCtx.strokeRect(xAlign - 10, y - fontAscent / 2, width + 20, fontDecent)
-  gCtx.closePath()
+  gCtx.beginPath()
+
+  gCtx.stroke()
 }
 
 function setXAlignment(measures, align, x) {
@@ -167,7 +169,6 @@ async function onSnap() {
 }
 
 async function takePhoto() {
-  console.log('take photo')
   const elDialog = document.querySelector('dialog')
   elDialog.close()
   gCtx.drawImage(gElVideo, 0, 0, gCanvas.width, gCanvas.height)
@@ -181,9 +182,9 @@ function addListeners() {
   addMouseListeners()
   addTouchListeners()
   window.addEventListener('resize', () => {
-    resizeCanvas()
+    // resizeCanvas()
     const center = { x: gCanvas.width / 2, y: gCanvas.height / 2 }
-    createCircle(center)
+    // createCircle(center)
     renderCanvas()
   })
 }
