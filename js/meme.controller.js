@@ -12,7 +12,6 @@ function initEditor() {
   addListeners()
   renderCanvas()
 }
-
 async function renderCanvas(save = null, userMedia) {
   const meme = getMemeForDisplay()
   if (!meme.imgUrl) {
@@ -31,7 +30,6 @@ async function renderCanvas(save = null, userMedia) {
   renderFocusToLine(lines[lineIdx], color)
   renderEmojis(emojis)
 }
-
 function renderEmojis(emojis) {
   if (!emojis.length) return
 
@@ -43,12 +41,10 @@ function renderEmojis(emojis) {
     gCtx.closePath()
   })
 }
-
 function onRemoveLine() {
   removeLine()
   renderCanvas(true)
 }
-
 function onAddLine() {
   const { lines } = getMemeForDisplay()
   let x = gCanvas.width / 2
