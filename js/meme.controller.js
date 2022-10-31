@@ -48,45 +48,6 @@ function onRemoveLine() {
   removeLine()
   renderCanvas(true)
 }
-function renderFocusToLine({ x, y, txt, align }, color) {
-  const measures = getLineMeasures(txt)
-  setRectToTxt(x, y, align, measures, color)
-}
-function setRectToTxt(x, y, align, measures, color) {
-  const { width, fontAscent, fontDecent } = measures
-  const xAlign = setXAlignment(measures, align, x)
-  gCtx.beginPath()
-  gCtx.strokeStyle = '#537bc4'
-  gCtx.strokeRect(xAlign - 10, y - fontAscent / 2, width + 20, fontDecent)
-  gCtx.beginPath()
-
-  gCtx.stroke()
-}
-
-function setXAlignment(measures, align, x) {
-  const { width, rightAlign } = measures
-  alignOpts = {
-    center: x - rightAlign,
-    right: x - width,
-    default: x,
-  }
-  return alignOpts[align] || alignOpts['default']
-}
-function getLineMeasures(txt) {
-  const {
-    actualBoundingBoxRight: rightAlign,
-    fontBoundingBoxAscent: fontAscent,
-    fontBoundingBoxDescent: fontDecent,
-    width,
-  } = gCtx.measureText(txt)
-
-  return {
-    rightAlign,
-    fontAscent,
-    fontDecent,
-    width,
-  }
-}
 
 function onAddLine() {
   const { lines } = getMemeForDisplay()
@@ -99,23 +60,19 @@ function onAddLine() {
   addLine(x, y)
   renderCanvas()
 }
-
 function onSelectEmoji(value) {
   addEmoji(value)
   renderCanvas()
 }
-
 function onChangeLine() {
   changeLine()
   renderInputValue()
   renderCanvas()
 }
-
 function onUpdateLine(value, type) {
   updateLine(value, type)
   renderCanvas()
 }
-
 function renderInputValue() {
   const elEditorPanel = document.querySelector('.editor-panel')
   const elInputs = elEditorPanel.querySelectorAll('input')
@@ -144,20 +101,17 @@ function renderLines(lines) {
     renderInputValue(line)
   })
 }
-
 function renderDefaultMsg() {
   document.querySelector(
     '.meme-editor'
   ).innerHTML = `<h1 class="default-msg">Select Meme from gallery to edit</h1>`
 }
-
 async function onSave(elLink, type = 'save') {
   await renderCanvas(true)
   downloadCanvas(elLink, type, gCanvas)
   const route = type === 'save' ? 'saved' : 'gallery'
   navigateTo(route)
 }
-
 function onShare() {
   console.log('share')
   uploadImg(gCanvas)
@@ -167,7 +121,6 @@ async function onSnap() {
   elDialog.show()
   getMediaDevices(gElVideo)
 }
-
 async function takePhoto() {
   const elDialog = document.querySelector('dialog')
   elDialog.close()
@@ -177,7 +130,45 @@ async function takePhoto() {
   renderCanvas()
   gElVideo.srcObject = null
 }
+function renderFocusToLine({ x, y, txt, align }, color) {
+  const measures = getLineMeasures(txt)
+  setRectToTxt(x, y, align, measures, color)
+}
+function setRectToTxt(x, y, align, measures, color) {
+  const { width, fontAscent, fontDecent } = measures
+  const xAlign = setXAlignment(measures, align, x)
+  gCtx.beginPath()
+  gCtx.strokeStyle = '#537bc4'
+  gCtx.strokeRect(xAlign - 10, y - fontAscent / 2, width + 20, fontDecent)
+  gCtx.beginPath()
 
+  gCtx.stroke()
+}
+function setXAlignment(measures, align, x) {
+  const { width, rightAlign } = measures
+  alignOpts = {
+    center: x - rightAlign,
+    right: x - width,
+    default: x,
+  }
+  return alignOpts[align] || alignOpts['default']
+}
+function getLineMeasures(txt) {
+  const {
+    actualBoundingBoxRight: rightAlign,
+    fontBoundingBoxAscent: fontAscent,
+    fontBoundingBoxDescent: fontDecent,
+    width,
+  } = gCtx.measureText(txt)
+
+  return {
+    rightAlign,
+    fontAscent,
+    fontDecent,
+    width,
+  }
+}
+// listeners
 function addListeners() {
   addMouseListeners()
   addTouchListeners()
@@ -193,13 +184,17 @@ function addMouseListeners() {
   gCanvas.addEventListener('mousedown', onDown)
   gCanvas.addEventListener('mouseup', onUp)
 }
-
 function addTouchListeners() {
   gCanvas.addEventListener('touchmove', onMove)
   gCanvas.addEventListener('touchstart', onDown)
   gCanvas.addEventListener('touchend', onUp)
 }
-
+function resizeCanvas() {
+  const elContainer = document.querySelector('.canvas-container')
+  gCanvas.width = elContainer.offsetWidth
+  gCanvas.height = elContainer.offsetHeight
+}
+// drag n drop
 function onDown(ev) {
   const pos = getEvPos(ev)
   line = isLineClicked(pos)
@@ -207,7 +202,6 @@ function onDown(ev) {
   setLineDrag(line)
   document.body.style.cursor = 'grabbing'
 }
-
 function onMove(ev) {
   const { lineDragIdx: idx, lines } = getMemeForDisplay()
   if (!lines[idx]?.isDrag) return
@@ -215,18 +209,11 @@ function onMove(ev) {
   moveCircle(pos)
   renderCanvas()
 }
-
 function onUp() {
   const { lines, lineDragIdx: idx } = getMemeForDisplay()
   setLineDrag(lines[idx])
   document.body.style.cursor = 'grab'
 }
-function resizeCanvas() {
-  const elContainer = document.querySelector('.canvas-container')
-  gCanvas.width = elContainer.offsetWidth
-  gCanvas.height = elContainer.offsetHeight
-}
-
 function getEvPos(ev) {
   var pos = {
     offsetX: ev.offsetX,
