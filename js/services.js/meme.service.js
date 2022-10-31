@@ -55,41 +55,20 @@ var gMeme = {
   ],
   emojis: [],
 }
-
-function addEmoji(value) {
-  gMeme.emojis.push(crateEmoji(value))
-}
-function crateEmoji(content) {
-  return {
-    content,
-    x: gCanvas.width / 2,
-    y: gCanvas.height / 2,
-    size: 48,
-  }
-}
-
 function getImagesForDisplay() {
   let imgs = gImgs
   imgs = _filterImgs(gFilterBy, gImgs)
   return imgs.length > 1 ? imgs : gImgs
 }
-
-function _filterImgs(topic, imgs) {
-  if (gFilterBy === 'ALL') return imgs
-  return imgs.filter((img) => img.keywords.includes(topic))
-}
 function getMemeForDisplay() {
   return gMeme
 }
-
 function getSavedForDisplay() {
   return loadFromStorage(SAVED_KEY) || []
 }
-
 function getKeyWords() {
   return gSearchCountMap
 }
-
 function setLineDrag(selectedLine) {
   idx = gMeme.lines.findIndex(
     (line) => line.x && line.y === selectedLine.y && selectedLine.x
@@ -98,7 +77,6 @@ function setLineDrag(selectedLine) {
   gMeme.lineDragIdx = idx
   if (!gMeme.lines[idx].isDrag) gMeme.lineDragIdx = null
 }
-
 function isLineClicked({ offsetX, offsetY }) {
   const line = gMeme.lines.find((line) => {
     return offsetY >= line.y && offsetY <= offsetY + line.y
@@ -109,18 +87,10 @@ function isLineClicked({ offsetX, offsetY }) {
   })
   return line || emoji
 }
-
 function moveCircle({ offsetX, offsetY }) {
   const { lineDragIdx: idx } = gMeme
   gMeme.lines[idx].y = offsetY
   gMeme.lines[idx].x = offsetX
-}
-function setOptsForFilter() {
-  let keywords = gImgs
-    .map((img) => img.keywords.join(','))
-    .join(',')
-    .split(',')
-  return ['ALL', ...new Set(keywords)]
 }
 function setMeme(memeId, userMedia = false) {
   const meme = getMemeById(memeId)
@@ -136,17 +106,14 @@ function setMeme(memeId, userMedia = false) {
   }
   console.log('gMeme:', gMeme)
 }
-
 function addLine(x, y) {
   console.log('addLine:')
   createLine('Enter your text', x, y)
 }
-
 function removeLine() {
   const { selectedLineIdx: idx } = gMeme
   gMeme.lines.splice(idx, 1)
 }
-
 function changeLine() {
   const { selectedLineIdx: idx, lines } = gMeme
   console.log('lines.length:  ', lines.length)
@@ -164,17 +131,26 @@ function getMemeById(memeId) {
   const savedMeme = savedMems.find((image) => image.id === memeId)
   return meme || savedMeme
 }
-
 function setLineProps(key, value) {
   const { selectedLineIdx: idx } = gMeme
   gMeme.lines[idx][key] = value
 }
-
 function updateLine(value, type) {
   const { selectedLineIdx: idx } = gMeme
   typeof value === 'number'
     ? (gMeme.lines[idx][type] += value)
     : (gMeme.lines[idx][type] = value)
+}
+function addEmoji(value) {
+  gMeme.emojis.push(crateEmoji(value))
+}
+function crateEmoji(content) {
+  return {
+    content,
+    x: gCanvas.width / 2,
+    y: gCanvas.height / 2,
+    size: 48,
+  }
 }
 function createLine(txt, x, y) {
   gMeme.lines.push({
@@ -188,7 +164,17 @@ function createLine(txt, x, y) {
     x,
   })
 }
-
+function _filterImgs(topic, imgs) {
+  if (gFilterBy === 'ALL') return imgs
+  return imgs.filter((img) => img.keywords.includes(topic))
+}
 function filterBy(topic) {
   gFilterBy = topic
+}
+function setOptsForFilter() {
+  let keywords = gImgs
+    .map((img) => img.keywords.join(','))
+    .join(',')
+    .split(',')
+  return ['ALL', ...new Set(keywords)]
 }
