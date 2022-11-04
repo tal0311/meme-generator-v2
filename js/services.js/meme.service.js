@@ -135,6 +135,7 @@ function setLineProps(key, value) {
   const { selectedLineIdx: idx } = gMeme
   gMeme.lines[idx][key] = value
 }
+// onUpdateLine(5, 'y')
 function updateLine(value, type) {
   const { selectedLineIdx: idx } = gMeme
   typeof value === 'number'
