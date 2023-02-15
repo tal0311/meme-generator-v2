@@ -12,7 +12,7 @@ function initEditor() {
   addListeners()
   renderCanvas()
 }
-async function renderCanvas(save = null, userMedia) {
+async function renderCanvas(save = null, userMedia = null) {
   const meme = getMemeForDisplay()
   if (!meme.imgUrl) {
     renderDefaultMsg()
@@ -26,8 +26,9 @@ async function renderCanvas(save = null, userMedia) {
   const media = userMedia ? userMedia : img
   gCtx.drawImage(media, 0, 0, gCanvas.width, gCanvas.height)
   renderLines(lines)
-  const color = save ? 'transparent' : 'black'
-  renderFocusToLine(lines[lineIdx], color)
+  if (!save) {
+    renderFocusToLine(lines[lineIdx], 'black')
+  }
   renderEmojis(emojis)
 }
 function renderEmojis(emojis) {
@@ -103,6 +104,7 @@ function renderDefaultMsg() {
   ).innerHTML = `<h1 class="default-msg">Select Meme from gallery to edit</h1>`
 }
 async function onSave(elLink, type = 'save') {
+  debugger
   await renderCanvas(true)
   downloadCanvas(elLink, type, gCanvas)
   const route = type === 'save' ? 'saved' : 'gallery'
@@ -134,7 +136,7 @@ function setRectToTxt(x, y, align, measures, color) {
   const { width, fontAscent, fontDecent } = measures
   const xAlign = setXAlignment(measures, align, x)
   gCtx.beginPath()
-  gCtx.strokeStyle = '#537bc4'
+  gCtx.strokeStyle = color
   gCtx.strokeRect(xAlign - 10, y - fontAscent / 2, width + 20, fontDecent)
   gCtx.beginPath()
 

@@ -1,11 +1,4 @@
-function makeId(length = 5) {
-  var txt = ''
-  var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-  for (var i = 0; i < length; i++) {
-    txt += chars.charAt(Math.floor(Math.random() * chars.length))
-  }
-  return txt
-}
+'use strict'
 
 function uploadImg(canvas) {
   // Convert the canvas to data
@@ -15,7 +8,9 @@ function uploadImg(canvas) {
     const encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl)
 
     window.open(
-      ` https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl} title="Share on Facebook" target="_blank"`
+      ` https://www.facebook.com/sharer/sharer.php?u=
+      ${uploadedImgUrl}&t=${uploadedImgUrl}
+       title="Share on Facebook" target="_blank"`
     )
   }
   doUploadImg(imgDataUrl, onSuccess)
@@ -75,4 +70,14 @@ function getRandomInt(min, max) {
   min = Math.ceil(min)
   max = Math.floor(max)
   return Math.floor(Math.random() * (max - min) + min) // The maximum is exclusive and the minimum is inclusive
+}
+
+
+function makeId(length = 5) {
+  var txt = ''
+  var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+  for (var i = 0; i < length; i++) {
+    txt += chars.charAt(Math.floor(Math.random() * chars.length))
+  }
+  return txt
 }

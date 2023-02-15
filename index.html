@@ -1,217 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- FONT AWESOME -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
-      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/style.css" />
-    <title>Meme generator V2</title>
-  </head>
-  <body class="grid" onload="initGallery()">
-    <header class="main-layout">
-      <div class="header-container flex a-center s-between">
-        <h1 class="logo">Meme-generator</h1>
-        <nav>
-          <a
-            class="active"
-            name="gallery"
-            onclick="navigateTo('gallery')"
-            href="#"
-            >Gallery</a
-          >
-          |
-          <a name="editor" onclick="navigateTo('editor')" href="#">Editor</a> |
-          <a name="saved" onclick="navigateTo('saved')" href="#">Saved</a>
-        </nav>
-      </div>
-    </header>
-    <section class="app-filter full main-layout">
-      <div class="app-filter-container flex">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- FONT AWESOME -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+  <title>Meme generator V2</title>
+</head>
+<body class="grid" onload="initGallery()">
+  <header class="main-layout">
+    <div class="header-container flex a-center s-between">
+      <h1 class="logo">Meme-generator</h1>
+      <nav>
+        <a class="active" name="gallery" onclick="navigateTo('gallery')" href="#">Gallery</a>
+        |
+        <a name="editor" onclick="navigateTo('editor')" href="#">Editor</a> |
+        <a name="saved" onclick="navigateTo('saved')" href="#">Saved</a>
+      </nav>
+    </div>
+  </header>
+  <section class="app-filter full main-layout">
+    <div class="app-filter-container flex">
 
-        <label for="ice-cream-choice">Choose a topic:</label>
-        <input list="topics" name="topics" oninput="onSelectTopic(this.value)" />
-        
-        <datalist id="topics"></datalist>
-        
-        <section class="search-word-container"></section>
+      <label for="ice-cream-choice">Choose a topic:</label>
+      <input list="topics" name="topics" oninput="onSelectTopic(this.value)" />
+
+      <datalist id="topics"></datalist>
+
+      <section class="search-word-container"></section>
+  </section>
+  <main class="full main-layout">
+    <!-- gallery route -->
+    <section class="gallery page gallery main-layout">
+      <div class="grid image-list j-center full"></div>
     </section>
-    <main class="full main-layout">
-      <!-- gallery route -->
-      <section class="gallery page gallery main-layout">
-        <div class="grid image-list j-center full"></div>
-      </section>
 
-      <!-- editor route -->
-      <section class="editor page meme-editor" hidden>
-        <div class="meme-editor-container flex j-center">
-          <section class="canvas-container">
-            <canvas width="450" height="450"></canvas>
-          </section>
-          <section class="editor-panel grid flex a-center">
-            <input
-              oninput="onUpdateLine(this.value, 'txt')"
-              type="text"
-              name="txt"
-              id=""
-              placeholder="Enter line text"
-            />
-            <div class="line-top-panel">
-              <button
-                class="fa-solid fa-arrow-up"
-                onclick="onUpdateLine(-5, 'y')"
-              ></button>
-              <button
-                class="fa-solid fa-arrow-down"
-                onclick="onUpdateLine(5, 'y')"
-              ></button>
-              <button
-                title="Add new line"
-                class="fa-solid fa-plus"
-                onclick="onAddLine()"
-              ></button>
-              <button
-                class="fa-solid fa-sort"
-                onclick="onChangeLine()"
-              ></button>
-              <button
-                class="fa-solid fa-trash"
-                onclick="onRemoveLine()"
-              ></button>
-            </div>
-            <div class="line-bottom-panel">
-              <div class="line-bottom-pane-primary">
-                <button
-                  class="fill fa-solid fa-a"
-                  onclick="onUpdateLine(5, 'size')"
-                >
-                  <i class="fa-plus"></i>
-                </button>
-                <button
-                  class="fill fa-solid fa-a"
-                  onclick="onUpdateLine(-5, 'size')"
-                >
-                  <i class="fa-solid fa-minus"></i>
-                </button>
-                <button
-                  class="fill fa-solid fa-align-right"
-                  onclick="onUpdateLine('right', 'align')"
-                ></button>
-                <button
-                  class="fill fa-solid fa-align-center"
-                  onclick="onUpdateLine('center', 'align')"
-                ></button>
-                <button
-                  class="fill fa-solid fa-align-left"
-                  onclick="onUpdateLine('left', 'align')"
-                ></button>
-              </div>
-              <div class="line-bottom-pane-secondary">
-                <button class="fa-solid fa-paint-roller"></button>
-                <label class="fa-solid fa-palette" for="fillColor">
-                  gshjhja
-                  <input
-                    id="fillColor"
-                    type="color"
-                    name="fillColor"
-                    value="#ff0000"
-                    oninput="onUpdateLine(this.value, 'fillColor')"
-                  />
-                </label>
-
-                <select name="font" onchange="onUpdateLine(this.value, 'font')">
-                  <option value="impact">impact</option>
-                  <option value="ariel">ariel</option>
-                </select>
-              </div>
-            </div>
-            <section class="emojis-container">
-              <div class="emojis-list">
-                <span class="emoji" onclick="onSelectEmoji('😎')">😎</span>
-                <span class="emoji" onclick="onSelectEmoji('☠️')">☠️</span>
-                <span class="emoji" onclick="onSelectEmoji('🍎')">🍎</span>
-                <span class="emoji" onclick="onSelectEmoji('💣')">💣</span>
-              </div>
-            </section>
-            <div class="share-download-container">
-              <button class="fa-solid fa-download">
-                <a
-                  title="DownLoad meme as image"
-                  href="#"
-                  onclick="onSave(this)"
-                  download="canvas-img.jpg"
-                ></a>
-              </button>
-              <button
-                class="fa-solid fa-bookmark"
-                title="Save meme"
-                onclick="onSave(null,'save')"
-              ></button>
-              <button
-                class="fa-solid fa-share-nodes"
-                title="Share to faceBook"
-                onclick="onShare()"
-              ></button>
-              <button class="fa-solid fa-upload" title="Upload image"></button>
-              <button
-                class="fa-solid fa-camera"
-                title="Take photo"
-                onclick="onSnap()"
-              ></button>
-            </div>
-          </section>
-        </div>
-      </section>
-
-      <!-- saved route -->
-      <section class="saved page" hidden>
-        <div class="grid saved-image-list j-center full"></div>
-        saved
-      </section>
-    </main>
-    <section class="about">
-      <article class="developer-info flex">
-        <div class="img-container">
-          <img src="assets//images/tal-profile-croped.jpg" alt="" />
-          <div class="social-container flex">
-            <i class="fa-brands fa-square-facebook"></i>
-            <i class="fa-brands fa-linkedin"></i>
-            <i class="fa-solid fa-at"></i>
+    <!-- editor route -->
+    <section class="editor page meme-editor" hidden>
+      <div class="meme-editor-container flex j-center">
+        <section class="canvas-container">
+          <canvas width="450" height="450"></canvas>
+        </section>
+        <section class="editor-panel grid flex a-center">
+          <input oninput="onUpdateLine(this.value, 'txt')" type="text" name="txt" placeholder="Enter line text" />
+          <div class="line-top-panel">
+            <button class="fa-solid fa-arrow-up" onclick="onUpdateLine(-5, 'y')"></button>
+            <button class="fa-solid fa-arrow-down" onclick="onUpdateLine(5, 'y')"></button>
+            <button title="Add new line" class="fa-solid fa-plus" onclick="onAddLine()"></button>
+            <button class="fa-solid fa-sort" onclick="onChangeLine()"></button>
+            <button class="fa-solid fa-trash" onclick="onRemoveLine()"></button>
           </div>
-        </div>
-        <div class="info-container">
-          <h4>Tal Amit - Fullstack developer</h4>
-          <p>
-            Full-stack/Front-end developer. Graduate of Coding Academy Bootcamp.
-            Vue.js, React.js Angular. Node.js, MongoDB, SQL
-          </p>
-        </div>
-      </article>
-    </section>
-    <footer class="flex a-center j-center">
-      <small>&copy;2022 | Tal Amit Fullstack developer</small>
-    </footer>
+          <div class="line-bottom-panel">
+            <div class="line-bottom-pane-primary">
+              <button class="fill fa-solid fa-a" onclick="onUpdateLine(5, 'size')">
+                <i class="fa-plus"></i>
+              </button>
+              <button class="fill fa-solid fa-a" onclick="onUpdateLine(-5, 'size')">
+                <i class="fa-solid fa-minus"></i>
+              </button>
+              <button class="fill fa-solid fa-align-right" onclick="onUpdateLine('right', 'align')"></button>
+              <button class="fill fa-solid fa-align-center" onclick="onUpdateLine('center', 'align')"></button>
+              <button class="fill fa-solid fa-align-left" onclick="onUpdateLine('left', 'align')"></button>
+            </div>
+            <div class="line-bottom-pane-secondary">
+              <button class="fa-solid fa-paint-roller"></button>
+              <label class="fa-solid fa-palette" for="fillColor">
+                gshjhja
+                <input id="fillColor" type="color" name="fillColor" value="#ff0000"
+                  oninput="onUpdateLine(this.value, 'fillColor')" />
+              </label>
 
-    <dialog >
-      <div class="dialog-container flex a-center j-center">
-        <video src="" autoplay width="300" height="300"></video>
-        <button onclick="takePhoto()">Snap</button>
+              <select name="font" onchange="onUpdateLine(this.value, 'font')">
+                <option value="impact">impact</option>
+                <option value="ariel">ariel</option>
+              </select>
+            </div>
+          </div>
+          <section class="emojis-container">
+            <div class="emojis-list">
+              <span class="emoji" onclick="onSelectEmoji('😎')">😎</span>
+              <span class="emoji" onclick="onSelectEmoji('☠️')">☠️</span>
+              <span class="emoji" onclick="onSelectEmoji('🍎')">🍎</span>
+              <span class="emoji" onclick="onSelectEmoji('💣')">💣</span>
+            </div>
+          </section>
+          <div class="share-download-container">
+            <button class="fa-solid fa-download">
+              <a title="DownLoad meme as image" href="#" onclick="onSave(this)" download="canvas-img.jpg"></a>
+            </button>
+            <button class="fa-solid fa-bookmark" title="Save meme" onclick="onSave(null,'save')"></button>
+            <button class="fa-solid fa-share-nodes" title="Share to faceBook" onclick="onShare()"></button>
+            <button class="fa-solid fa-upload" title="Upload image"></button>
+            <button class="fa-solid fa-camera" title="Take photo" onclick="onSnap()"></button>
+          </div>
+        </section>
       </div>
-    </dialog>
+    </section>
 
-    <script src="js/services.js/util.service.js"></script>
-    <script src="js/services.js/storage.service.js"></script>
-    <script src="js/services.js/meme.service.js"></script>
-    <script src="js/saved.controller.js"></script>
-    <script src="js/gallery.controller.js"></script>
-    <script src="js/meme.controller.js"></script>
-  </body>
+    <!-- saved route -->
+    <section class="saved page" hidden>
+      <div class="grid saved-image-list j-center full"></div>
+      saved
+    </section>
+  </main>
+  <section class="about">
+    <article class="developer-info flex">
+      <div class="img-container">
+        <img src="assets//images/tal-profile-croped.jpg" alt="" />
+        <div class="social-container flex">
+          <i class="fa-brands fa-square-facebook"></i>
+          <i class="fa-brands fa-linkedin"></i>
+          <i class="fa-solid fa-at"></i>
+        </div>
+      </div>
+      <div class="info-container">
+        <h4>Tal Amit - Fullstack developer</h4>
+        <p>
+          Full-stack/Front-end developer. Graduate of Coding Academy Bootcamp.
+          Vue.js, React.js Angular. Node.js, MongoDB, SQL
+        </p>
+      </div>
+    </article>
+  </section>
+  <footer class="flex a-center j-center">
+    <small>&copy;2022 | Tal Amit Fullstack developer</small>
+  </footer>
+
+  <dialog>
+    <div class="dialog-container flex a-center j-center">
+      <video src="" autoplay width="300" height="300"></video>
+      <button onclick="takePhoto()">Snap</button>
+    </div>
+  </dialog>
+
+  <script src="js/services.js/util.service.js"></script>
+  <script src="js/services.js/storage.service.js"></script>
+  <script src="js/services.js/meme.service.js"></script>
+  <script src="js/saved.controller.js"></script>
+  <script src="js/gallery.controller.js"></script>
+  <script src="js/meme.controller.js"></script>
+</body>
 </html>
