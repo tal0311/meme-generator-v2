@@ -1,17 +1,18 @@
 /* fonts */
 @font-face {
-  font-family: LuckiestGuy;
-  src: url(assets/fonts/LuckiestGuy-Regular.ttf);
+  font-family: "LuckiestGuy";
+  src: url(./../assets/fonts/LuckiestGuy-Regular.ttf);
 }
 @font-face {
-  font-family: PoppinsExtraLight;
-  src: url(assets/fonts/Poppins-ExtraLight.ttf);
+  font-family: "PoppinsExtraLight";
+  src: url(./../assets/fonts/Poppins-ExtraLight.ttf);
 }
 
 @font-face {
-  font-family: PoppinsRegular;
-  src: url(assets/fonts/Poppins-Regular.ttf);
+  font-family: "PoppinsRegular";
+  src: url(./../assets/fonts/Poppins-Regular.ttf);
 }
+
 /* base */
 * {
 }
@@ -51,7 +52,7 @@ a.active {
   text-decoration: overline;
 }
 
-input[type='color'] {
+input[type="color"] {
   opacity: 0;
   position: absolute;
 }
@@ -73,13 +74,13 @@ body {
 /* components */
 body.grid {
   grid-template-columns: 1fr;
-  grid-template-rows: 50px 50px 1fr 150px 100px;
+  grid-template-rows: 50px 50px 1fr 150px 50px;
   grid-template-areas:
-    'header'
-    'filter'
-    'main'
-    'about'
-    'footer';
+    "header"
+    "filter"
+    "main"
+    "about"
+    "footer";
 }
 
 header {
@@ -126,10 +127,10 @@ body.grid.editor {
   grid-template-columns: 1fr;
   grid-template-rows: 50px 50px 1fr 100px;
   grid-template-areas:
-    'header'
-    'filter'
-    'main'
-    'footer';
+    "header"
+    "filter"
+    "main"
+    "footer";
 }
 
 body.editor .about {
@@ -212,7 +213,7 @@ footer {
 }
 
 .line-bottom-panel img {
-  content: '';
+  content: "";
   display: none;
 }
 
@@ -228,14 +229,14 @@ footer {
   justify-items: center;
   grid-auto-flow: row;
   grid-template-areas:
-    'line-input line-input line-input line-input line-input'
-    'top-panel top-panel top-panel top-panel top-panel'
-    'bottom-panel bottom-panel bottom-panel bottom-panel bottom-panel'
-    'emojis emojis emojis emojis emojis'
-    'sheare-container sheare-container sheare-container sheare-container sheare-container';
+    "line-input line-input line-input line-input line-input"
+    "top-panel top-panel top-panel top-panel top-panel"
+    "bottom-panel bottom-panel bottom-panel bottom-panel bottom-panel"
+    "emojis emojis emojis emojis emojis"
+    "sheare-container sheare-container sheare-container sheare-container sheare-container";
 }
 
-input[name='txt'] {
+input[name="txt"] {
   grid-area: line-input;
   width: 90%;
   border: none;
@@ -260,7 +261,7 @@ input[name='txt'] {
   margin-bottom: 0.5em;
 }
 
-label[for='fillColor'] {
+label[for="fillColor"] {
   position: relative;
 }
 

@@ -47,6 +47,7 @@
           <canvas width="450" height="450"></canvas>
         </section>
         <section class="editor-panel grid flex a-center">
+          <!-- TODO: Change text in Canvas onInput -->
           <input oninput="onUpdateLine(this.value, 'txt')" type="text" name="txt" placeholder="Enter line text" />
           <div class="line-top-panel">
             <button class="fa-solid fa-arrow-up" onclick="onUpdateLine(-5, 'y')"></button>
@@ -90,8 +91,9 @@
             </div>
           </section>
           <div class="share-download-container">
-            <button class="fa-solid fa-download">
-              <a title="DownLoad meme as image" href="#" onclick="onSave(this)" download="canvas-img.jpg"></a>
+            <button title="download">
+              <a class="fa-solid fa-download" title="DownLoad meme as image" href="#" onclick="onSave(this, 'download')"
+                download="canvas-img.jpg"></a>
             </button>
             <button class="fa-solid fa-bookmark" title="Save meme" onclick="onSave(null,'save')"></button>
             <button class="fa-solid fa-share-nodes" title="Share to faceBook" onclick="onShare()"></button>

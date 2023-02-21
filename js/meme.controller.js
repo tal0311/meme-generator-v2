@@ -103,8 +103,9 @@ function renderDefaultMsg() {
     '.meme-editor'
   ).innerHTML = `<h1 class="default-msg">Select Meme from gallery to edit</h1>`
 }
+// TODO: Save memes to localStorage and show them on memes page
 async function onSave(elLink, type = 'save') {
-  debugger
+  // TODO: Download and save meme without the border of selected line
   await renderCanvas(true)
   downloadCanvas(elLink, type, gCanvas)
   const route = type === 'save' ? 'saved' : 'gallery'
